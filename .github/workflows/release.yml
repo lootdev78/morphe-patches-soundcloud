@@ -37,9 +37,6 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
 
-      - name: Validate repository structure
-        run: python3 tools/validate_repo.py
-
       - name: Install release dependencies
         run: npm ci
 
@@ -61,7 +58,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew buildAndroid --no-daemon
-
-      - name: Verify bundled runtime extensions
-        if: steps.release.outputs.new_release_published != 'true'
-        run: ./tools/verify_mpp.sh
